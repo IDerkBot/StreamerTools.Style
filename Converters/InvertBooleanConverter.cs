@@ -1,0 +1,10 @@
+﻿namespace StreamerTools.Style.Converters
+{
+    public class InvertBooleanConverter : BooleanConverter<bool>
+    {
+        public InvertBooleanConverter()
+            : base(false, true)
+        {
+        }
+    }
+}
