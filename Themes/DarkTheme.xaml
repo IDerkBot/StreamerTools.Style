@@ -4,6 +4,10 @@
 
         <ResourceDictionary Source="UIControls/Button.xaml" />
 
+        <ResourceDictionary Source="UIControls/TextBox.xaml" />
+
+        <ResourceDictionary Source="UIControls/ComboBox.xaml" />
+
         <ResourceDictionary Source="UIControls/ScrollViewer.xaml" />
 
     </ResourceDictionary.MergedDictionaries>

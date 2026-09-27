@@ -180,6 +180,53 @@ namespace StreamerTools.Style.Theme.Extensions
             => (bool)element.GetValue(HasClearButtonProperty);
 
         /// <summary>
+        /// Clears the text of the text box that owns the button once it is clicked.
+        /// </summary>
+        public static readonly DependencyProperty ClearOnClickProperty = DependencyProperty.RegisterAttached(
+            "ClearOnClick", typeof(bool), typeof(TextFieldAssist), new PropertyMetadata(false, OnClearOnClickChanged));
+
+        public static void SetClearOnClick(DependencyObject element, bool value)
+            => element.SetValue(ClearOnClickProperty, value);
+
+        public static bool GetClearOnClick(DependencyObject element)
+            => (bool)element.GetValue(ClearOnClickProperty);
+
+        private static void OnClearOnClickChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is not Button button)
+            {
+                return;
+            }
+
+            button.Click -= OnClearButtonClick;
+
+            if ((bool)e.NewValue)
+            {
+                button.Click += OnClearButtonClick;
+            }
+        }
+
+        private static void OnClearButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (sender is Visual visual)
+            {
+                DependencyObject current = visual;
+
+                while (current != null)
+                {
+                    if (current is TextBox textBox)
+                    {
+                        textBox.Clear();
+                        textBox.Focus();
+                        return;
+                    }
+
+                    current = current is Visual parent ? VisualTreeHelper.GetParent(parent) : null;
+                }
+            }
+        }
+
+        /// <summary>
         /// Controls visibility of the leading icon
         /// </summary>
         public static readonly DependencyProperty HasLeadingIconProperty = DependencyProperty.RegisterAttached(

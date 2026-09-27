@@ -1,0 +1,237 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:attach="clr-namespace:StreamerTools.Style.AttachedProperties"
+    xmlns:assist="clr-namespace:StreamerTools.Style.Theme.Extensions"
+    xmlns:controls="clr-namespace:StreamerTools.Style.Controls"
+    xmlns:converters="clr-namespace:StreamerTools.Style.Converters">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/StreamerTools.Style;component/Themes/DarkThemeUtility/Colors.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <converters:ButtonIconVisibilityConverter x:Key="IconVisibilityConverter" />
+    <converters:StringVisibilityConverter x:Key="StringVisibilityConverter" />
+    <converters:TextClearVisibilityConverter x:Key="ClearVisibilityConverter" />
+    <converters:TextPlaceholderVisibilityConverter x:Key="PlaceholderVisibilityConverter" />
+
+    <ControlTemplate x:Key="TextFieldClearButtonTemplate" TargetType="{x:Type Button}">
+        <Border
+            Name="Bd"
+            Background="{TemplateBinding Background}"
+            CornerRadius="10">
+            <controls:Icon
+                Width="12"
+                Height="12"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Fill="{StaticResource InputPlaceholderBrush}"
+                Kind="Close" />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter
+                    TargetName="Bd"
+                    Property="Background"
+                    Value="{StaticResource InputItemHoverBrush}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="TextFieldClearButton" TargetType="{x:Type Button}">
+        <Setter Property="assist:TextFieldAssist.ClearOnClick" Value="True" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Height" Value="20" />
+        <Setter Property="Template" Value="{StaticResource TextFieldClearButtonTemplate}" />
+        <Setter Property="Width" Value="20" />
+    </Style>
+
+    <ControlTemplate x:Key="TextFieldTemplate" TargetType="{x:Type TextBox}">
+        <Border
+            Name="PART_Border"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            CornerRadius="{TemplateBinding attach:Hint.CornerRadius}"
+            SnapsToDevicePixels="True">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="{TemplateBinding attach:TextBox.PrefixWidth}" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="{TemplateBinding attach:TextBox.SuffixWidth}" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <controls:Icon
+                    Name="LeftIcon"
+                    Grid.Column="0"
+                    Width="{TemplateBinding attach:TextBox.IconWidth}"
+                    Height="{TemplateBinding attach:TextBox.IconHeight}"
+                    Margin="8,0,4,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{TemplateBinding Foreground}"
+                    Kind="{TemplateBinding attach:TextBox.LeftIcon}"
+                    Opacity=".7"
+                    Visibility="{TemplateBinding attach:TextBox.LeftIcon,
+                                                 Converter={StaticResource IconVisibilityConverter}}" />
+                <TextBlock
+                    Name="Prefix"
+                    Grid.Column="1"
+                    Margin="0,0,4,0"
+                    VerticalAlignment="Center"
+                    Foreground="{TemplateBinding Foreground}"
+                    Opacity=".7"
+                    Text="{TemplateBinding attach:TextBox.Prefix}"
+                    Visibility="{Binding Path=(attach:TextBox.Prefix),
+                                                 Converter={StaticResource StringVisibilityConverter},
+                                                 RelativeSource={RelativeSource TemplatedParent}}" />
+                <ScrollViewer Name="PART_ContentHost" Grid.Column="2" />
+                <TextBlock
+                    Name="Suffix"
+                    Grid.Column="3"
+                    Margin="4,0,0,0"
+                    VerticalAlignment="Center"
+                    Foreground="{TemplateBinding Foreground}"
+                    Opacity=".7"
+                    Text="{TemplateBinding attach:TextBox.Suffix}"
+                    Visibility="{Binding Path=(attach:TextBox.Suffix),
+                                                 Converter={StaticResource StringVisibilityConverter},
+                                                 RelativeSource={RelativeSource TemplatedParent}}" />
+                <Button
+                    Name="ClearButton"
+                    Grid.Column="4"
+                    Margin="4,0,4,0"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource TextFieldClearButton}">
+                    <Button.Visibility>
+                        <MultiBinding Converter="{StaticResource ClearVisibilityConverter}">
+                            <Binding
+                                Path="(attach:TextBox.CanClear)"
+                                RelativeSource="{RelativeSource TemplatedParent}" />
+                            <Binding
+                                Path="Text"
+                                RelativeSource="{RelativeSource TemplatedParent}" />
+                        </MultiBinding>
+                    </Button.Visibility>
+                </Button>
+                <controls:Icon
+                    Name="RightIcon"
+                    Grid.Column="5"
+                    Width="{TemplateBinding attach:TextBox.IconWidth}"
+                    Height="{TemplateBinding attach:TextBox.IconHeight}"
+                    Margin="0,0,8,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{TemplateBinding Foreground}"
+                    Kind="{TemplateBinding attach:TextBox.RightIcon}"
+                    Opacity=".7"
+                    Visibility="{TemplateBinding attach:TextBox.RightIcon,
+                                                 Converter={StaticResource IconVisibilityConverter}}" />
+                <TextBlock
+                    Name="Placeholder"
+                    Grid.Column="2"
+                    Margin="{TemplateBinding Padding}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Foreground="{StaticResource InputPlaceholderBrush}"
+                    IsHitTestVisible="False"
+                    Text="{TemplateBinding attach:Hint.Placeholder}"
+                    TextTrimming="CharacterEllipsis">
+                    <TextBlock.Visibility>
+                        <MultiBinding Converter="{StaticResource PlaceholderVisibilityConverter}">
+                            <Binding
+                                Path="Text"
+                                RelativeSource="{RelativeSource TemplatedParent}" />
+                            <Binding
+                                Path="(attach:Hint.Placeholder)"
+                                RelativeSource="{RelativeSource TemplatedParent}" />
+                        </MultiBinding>
+                    </TextBlock.Visibility>
+                </TextBlock>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsReadOnly" Value="True">
+                <Setter
+                    TargetName="ClearButton"
+                    Property="Visibility"
+                    Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter
+                    TargetName="ClearButton"
+                    Property="Visibility"
+                    Value="Collapsed" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="TextFieldBase" TargetType="{x:Type TextBox}">
+        <Setter Property="Background" Value="{StaticResource InputBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource InputBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CaretBrush" Value="{StaticResource InputForegroundBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource InputForegroundBrush}" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="MinHeight" Value="32" />
+        <Setter Property="Padding" Value="8,4" />
+        <Setter Property="SelectionBrush" Value="{StaticResource Focus_PrimaryBrush}" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="attach:Hint.CornerRadius" Value="4" />
+        <Setter Property="attach:TextBox.IconHeight" Value="16" />
+        <Setter Property="attach:TextBox.IconWidth" Value="16" />
+        <Setter Property="Template" Value="{StaticResource TextFieldTemplate}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource Hover_InputBorderBrush}" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource Focus_PrimaryBrush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{StaticResource SecondaryBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource Pressed_SecondaryBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource InputPlaceholderBrush}" />
+                <Setter Property="Opacity" Value=".5" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style BasedOn="{StaticResource TextFieldBase}" TargetType="{x:Type TextBox}" />
+
+    <Style
+        x:Key="TextFieldSearch"
+        BasedOn="{StaticResource TextFieldBase}"
+        TargetType="{x:Type TextBox}">
+        <Setter Property="attach:TextBox.CanClear" Value="True" />
+        <Setter Property="attach:TextBox.LeftIcon" Value="Magnify" />
+    </Style>
+
+    <Style
+        x:Key="TextFieldMultiline"
+        BasedOn="{StaticResource TextFieldBase}"
+        TargetType="{x:Type TextBox}">
+        <Setter Property="AcceptsReturn" Value="True" />
+        <Setter Property="MinHeight" Value="120" />
+        <Setter Property="Padding" Value="8" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="VerticalContentAlignment" Value="Top" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+    </Style>
+
+    <Style
+        x:Key="TextFieldReadOnly"
+        BasedOn="{StaticResource TextFieldBase}"
+        TargetType="{x:Type TextBox}">
+        <Setter Property="Background" Value="{StaticResource ScrollViewerBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource InputPopupBorderBrush}" />
+        <Setter Property="IsReadOnly" Value="True" />
+    </Style>
+</ResourceDictionary>
