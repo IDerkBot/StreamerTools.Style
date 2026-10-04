@@ -1,0 +1,209 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:attach="clr-namespace:StreamerTools.Style.AttachedProperties"
+    xmlns:controls="clr-namespace:StreamerTools.Style.Controls"
+    xmlns:converters="clr-namespace:StreamerTools.Style.Converters">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/StreamerTools.Style;component/Themes/DarkThemeUtility/Colors.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <converters:NullableToVisibilityConverter x:Key="NotNullToVisibility" />
+    <converters:StringVisibilityConverter x:Key="StringToVisibility" />
+
+    <!--
+        Фокус — кольцо вокруг всей строки (как у полей ввода), а не только квадрата:
+        у чекбокса кликабельна строка целиком, и кольцо должно её показывать.
+    -->
+    <Style x:Key="CheckBoxFocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border
+                        Margin="-2"
+                        BorderBrush="{StaticResource Focus_PrimaryBrush}"
+                        BorderThickness="1"
+                        CornerRadius="6"
+                        SnapsToDevicePixels="True" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="CheckBoxTemplate" TargetType="{x:Type CheckBox}">
+        <Border
+            Name="Bd"
+            Padding="{TemplateBinding Padding}"
+            Background="{TemplateBinding Background}"
+            CornerRadius="{TemplateBinding attach:Hint.CornerRadius}"
+            SnapsToDevicePixels="True">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid
+                    Width="{TemplateBinding attach:CheckBox.BoxMarkWidth}"
+                    Height="{TemplateBinding attach:CheckBox.BoxMarkHeight}"
+                    VerticalAlignment="Center">
+                    <Border
+                        Name="Box"
+                        Background="{StaticResource InputBackgroundBrush}"
+                        BorderBrush="{StaticResource InputBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        SnapsToDevicePixels="True" />
+                    <Viewbox
+                        Name="Mark"
+                        Width="{TemplateBinding attach:CheckBox.MarkWidth}"
+                        Height="{TemplateBinding attach:CheckBox.MarkHeight}"
+                        Stretch="Uniform"
+                        Visibility="Collapsed">
+                        <!--  Viewbox, а не сам Icon: у Icon свой MinWidth 15, в квадрате 16 ему места не хватит  -->
+                        <controls:Icon
+                            Width="15"
+                            Height="15"
+                            Fill="{StaticResource InputForegroundBrush}"
+                            Kind="Check" />
+                    </Viewbox>
+                    <!--  Промежуточное состояние (IsChecked=null): та же рамка, но короткая черта  -->
+                    <Border
+                        Name="Dash"
+                        Width="8"
+                        Height="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="{StaticResource InputForegroundBrush}"
+                        CornerRadius="1"
+                        Visibility="Collapsed" />
+                </Grid>
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="8,0,0,0"
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                    Visibility="{Binding Content,
+                                         Converter={StaticResource NotNullToVisibility},
+                                         RelativeSource={RelativeSource TemplatedParent}}">
+                    <ContentPresenter
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        Content="{TemplateBinding Content}"
+                        ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                        ContentTemplate="{TemplateBinding ContentTemplate}"
+                        ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        TextElement.FontWeight="{TemplateBinding FontWeight}"
+                        TextElement.Foreground="{TemplateBinding Foreground}" />
+                    <TextBlock
+                        Margin="0,2,0,0"
+                        FontSize="11"
+                        Foreground="{StaticResource InputPlaceholderBrush}"
+                        Text="{TemplateBinding attach:CheckBox.Description}"
+                        TextTrimming="CharacterEllipsis"
+                        Visibility="{Binding Path=(attach:CheckBox.Description),
+                                             Converter={StaticResource StringToVisibility},
+                                             RelativeSource={RelativeSource TemplatedParent}}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter
+                    TargetName="Box"
+                    Property="BorderBrush"
+                    Value="{StaticResource Hover_InputBorderBrush}" />
+                <Setter
+                    TargetName="Bd"
+                    Property="Background"
+                    Value="{StaticResource InputItemHoverBrush}" />
+            </Trigger>
+            <!--  Нажатие гасит строку, но не залитую галочкой рамку: тот же приём,
+                  что и у кнопок (IsChecked-состояние объявляется последним триггером)  -->
+            <Trigger Property="IsPressed" Value="True">
+                <Setter
+                    TargetName="Bd"
+                    Property="Background"
+                    Value="{StaticResource Pressed_PrimaryBrush}" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsPressed" Value="True" />
+                    <Condition Property="IsChecked" Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter
+                    TargetName="Box"
+                    Property="Background"
+                    Value="{StaticResource Pressed_PrimaryBrush}" />
+            </MultiTrigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter
+                    TargetName="Box"
+                    Property="Background"
+                    Value="{StaticResource Focus_PrimaryBrush}" />
+                <Setter
+                    TargetName="Box"
+                    Property="BorderBrush"
+                    Value="{StaticResource Focus_PrimaryBrush}" />
+                <Setter
+                    TargetName="Mark"
+                    Property="Visibility"
+                    Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="{x:Null}">
+                <Setter
+                    TargetName="Box"
+                    Property="Background"
+                    Value="{StaticResource Focus_PrimaryBrush}" />
+                <Setter
+                    TargetName="Box"
+                    Property="BorderBrush"
+                    Value="{StaticResource Focus_PrimaryBrush}" />
+                <Setter
+                    TargetName="Dash"
+                    Property="Visibility"
+                    Value="Visible" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="CheckBoxBase" TargetType="{x:Type CheckBox}">
+        <Setter Property="attach:CheckBox.BoxMarkHeight" Value="16" />
+        <Setter Property="attach:CheckBox.BoxMarkWidth" Value="16" />
+        <Setter Property="attach:CheckBox.MarkHeight" Value="11" />
+        <Setter Property="attach:CheckBox.MarkWidth" Value="11" />
+        <Setter Property="attach:Hint.CornerRadius" Value="4" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource CheckBoxFocusVisual}" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="MinHeight" Value="24" />
+        <Setter Property="Padding" Value="6,4" />
+        <Setter Property="Template" Value="{StaticResource CheckBoxTemplate}" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Cursor" Value="Arrow" />
+                <Setter Property="Foreground" Value="{StaticResource InputPlaceholderBrush}" />
+                <Setter Property="Opacity" Value=".5" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style BasedOn="{StaticResource CheckBoxBase}" TargetType="{x:Type CheckBox}" />
+
+    <!--  Компактный вариант для плотных списков (строки стрипов, списки устройств)  -->
+    <Style
+        x:Key="CheckBoxCompact"
+        BasedOn="{StaticResource CheckBoxBase}"
+        TargetType="{x:Type CheckBox}">
+        <Setter Property="attach:CheckBox.BoxMarkHeight" Value="14" />
+        <Setter Property="attach:CheckBox.BoxMarkWidth" Value="14" />
+        <Setter Property="attach:CheckBox.MarkHeight" Value="10" />
+        <Setter Property="attach:CheckBox.MarkWidth" Value="10" />
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="MinHeight" Value="18" />
+        <Setter Property="Padding" Value="4,2" />
+    </Style>
+</ResourceDictionary>

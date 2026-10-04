@@ -8,6 +8,8 @@
 
         <ResourceDictionary Source="UIControls/ComboBox.xaml" />
 
+        <ResourceDictionary Source="UIControls/CheckBox.xaml" />
+
         <ResourceDictionary Source="UIControls/ScrollViewer.xaml" />
 
     </ResourceDictionary.MergedDictionaries>
