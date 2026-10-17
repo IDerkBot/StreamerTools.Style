@@ -29,22 +29,13 @@
             CornerRadius="2" />
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter
-                    TargetName="ThumbBorder"
-                    Property="Background"
-                    Value="{StaticResource Hover_ScrollBarThumbBrush}" />
+                <Setter TargetName="ThumbBorder" Property="Background" Value="{StaticResource Hover_ScrollBarThumbBrush}" />
             </Trigger>
             <Trigger Property="IsDragging" Value="True">
-                <Setter
-                    TargetName="ThumbBorder"
-                    Property="Background"
-                    Value="{StaticResource Pressed_ScrollBarThumbBrush}" />
+                <Setter TargetName="ThumbBorder" Property="Background" Value="{StaticResource Pressed_ScrollBarThumbBrush}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter
-                    TargetName="ThumbBorder"
-                    Property="Opacity"
-                    Value="0" />
+                <Setter TargetName="ThumbBorder" Property="Opacity" Value="0" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -65,74 +56,35 @@
                 Opacity=".3" />
             <Track Name="PART_Track" IsDirectionReversed="True">
                 <Track.DecreaseRepeatButton>
-                    <RepeatButton
-                        Command="ScrollBar.PageUpCommand"
-                        Style="{StaticResource ScrollBarPageButton}" />
+                    <RepeatButton Command="ScrollBar.PageUpCommand" Style="{StaticResource ScrollBarPageButton}" />
                 </Track.DecreaseRepeatButton>
                 <Track.Thumb>
-                    <Thumb
-                        Background="{StaticResource ScrollBarThumbBrush}"
-                        Template="{StaticResource ScrollBarThumbTemplate}" />
+                    <Thumb Background="{StaticResource ScrollBarThumbBrush}" Template="{StaticResource ScrollBarThumbTemplate}" />
                 </Track.Thumb>
                 <Track.IncreaseRepeatButton>
-                    <RepeatButton
-                        Command="ScrollBar.PageDownCommand"
-                        Style="{StaticResource ScrollBarPageButton}" />
+                    <RepeatButton Command="ScrollBar.PageDownCommand" Style="{StaticResource ScrollBarPageButton}" />
                 </Track.IncreaseRepeatButton>
             </Track>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="Orientation" Value="Vertical">
-                <Setter
-                    TargetName="TrackBorder"
-                    Property="Width"
-                    Value="6" />
-                <Setter
-                    TargetName="TrackBorder"
-                    Property="Margin"
-                    Value="0,2" />
-                <Setter
-                    TargetName="TrackBorder"
-                    Property="HorizontalAlignment"
-                    Value="Center" />
+                <Setter TargetName="TrackBorder" Property="Width" Value="6" />
+                <Setter TargetName="TrackBorder" Property="Margin" Value="0,2" />
+                <Setter TargetName="TrackBorder" Property="HorizontalAlignment" Value="Center" />
             </Trigger>
             <Trigger Property="Orientation" Value="Horizontal">
-                <Setter
-                    TargetName="PART_Track"
-                    Property="IsDirectionReversed"
-                    Value="False" />
-                <Setter
-                    TargetName="TrackBorder"
-                    Property="Width"
-                    Value="Auto" />
-                <Setter
-                    TargetName="TrackBorder"
-                    Property="Height"
-                    Value="6" />
-                <Setter
-                    TargetName="TrackBorder"
-                    Property="Margin"
-                    Value="2,0" />
-                <Setter
-                    TargetName="TrackBorder"
-                    Property="HorizontalAlignment"
-                    Value="Stretch" />
-                <Setter
-                    TargetName="TrackBorder"
-                    Property="VerticalAlignment"
-                    Value="Center" />
+                <Setter TargetName="PART_Track" Property="IsDirectionReversed" Value="False" />
+                <Setter TargetName="TrackBorder" Property="Width" Value="Auto" />
+                <Setter TargetName="TrackBorder" Property="Height" Value="6" />
+                <Setter TargetName="TrackBorder" Property="Margin" Value="2,0" />
+                <Setter TargetName="TrackBorder" Property="HorizontalAlignment" Value="Stretch" />
+                <Setter TargetName="TrackBorder" Property="VerticalAlignment" Value="Center" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter
-                    TargetName="TrackBorder"
-                    Property="Opacity"
-                    Value="1" />
+                <Setter TargetName="TrackBorder" Property="Opacity" Value="1" />
             </Trigger>
             <Trigger Property="IsMouseCaptureWithin" Value="True">
-                <Setter
-                    TargetName="TrackBorder"
-                    Property="Opacity"
-                    Value="1" />
+                <Setter TargetName="TrackBorder" Property="Opacity" Value="1" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -186,20 +138,20 @@
                                 Name="PART_VerticalScrollBar"
                                 Grid.Row="0"
                                 Grid.Column="1"
-                                Orientation="Vertical"
-                                Value="{TemplateBinding VerticalOffset}"
                                 Maximum="{TemplateBinding ScrollableHeight}"
+                                Orientation="Vertical"
                                 ViewportSize="{TemplateBinding ViewportHeight}"
-                                Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" />
+                                Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                                Value="{TemplateBinding VerticalOffset}" />
                             <ScrollBar
                                 Name="PART_HorizontalScrollBar"
                                 Grid.Row="1"
                                 Grid.Column="0"
-                                Orientation="Horizontal"
-                                Value="{TemplateBinding HorizontalOffset}"
                                 Maximum="{TemplateBinding ScrollableWidth}"
+                                Orientation="Horizontal"
                                 ViewportSize="{TemplateBinding ViewportWidth}"
-                                Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" />
+                                Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                                Value="{TemplateBinding HorizontalOffset}" />
                             <Rectangle
                                 Name="Corner"
                                 Grid.Row="1"
@@ -208,21 +160,11 @@
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger
-                            Property="assist:ScrollViewerAssist.CornerRectangleVisibility"
-                            Value="Collapsed">
-                            <Setter
-                                TargetName="Corner"
-                                Property="Visibility"
-                                Value="Collapsed" />
+                        <Trigger Property="assist:ScrollViewerAssist.CornerRectangleVisibility" Value="Collapsed">
+                            <Setter TargetName="Corner" Property="Visibility" Value="Collapsed" />
                         </Trigger>
-                        <Trigger
-                            Property="assist:ScrollViewerAssist.CornerRectangleVisibility"
-                            Value="Hidden">
-                            <Setter
-                                TargetName="Corner"
-                                Property="Visibility"
-                                Value="Hidden" />
+                        <Trigger Property="assist:ScrollViewerAssist.CornerRectangleVisibility" Value="Hidden">
+                            <Setter TargetName="Corner" Property="Visibility" Value="Hidden" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

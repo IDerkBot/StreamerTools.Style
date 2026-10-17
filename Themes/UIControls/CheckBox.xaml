@@ -82,16 +82,14 @@
                     Grid.Column="1"
                     Margin="8,0,0,0"
                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                    Visibility="{Binding Content,
-                                         Converter={StaticResource NotNullToVisibility},
-                                         RelativeSource={RelativeSource TemplatedParent}}">
+                    Visibility="{Binding Content, Converter={StaticResource NotNullToVisibility}, RelativeSource={RelativeSource TemplatedParent}}">
                     <ContentPresenter
                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                         Content="{TemplateBinding Content}"
                         ContentStringFormat="{TemplateBinding ContentStringFormat}"
                         ContentTemplate="{TemplateBinding ContentTemplate}"
                         ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
-                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                         TextElement.FontWeight="{TemplateBinding FontWeight}"
                         TextElement.Foreground="{TemplateBinding Foreground}" />
                     <TextBlock
@@ -100,68 +98,38 @@
                         Foreground="{StaticResource InputPlaceholderBrush}"
                         Text="{TemplateBinding attach:CheckBox.Description}"
                         TextTrimming="CharacterEllipsis"
-                        Visibility="{Binding Path=(attach:CheckBox.Description),
-                                             Converter={StaticResource StringToVisibility},
-                                             RelativeSource={RelativeSource TemplatedParent}}" />
+                        Visibility="{Binding Path=(attach:CheckBox.Description), Converter={StaticResource StringToVisibility}, RelativeSource={RelativeSource TemplatedParent}}" />
                 </StackPanel>
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter
-                    TargetName="Box"
-                    Property="BorderBrush"
-                    Value="{StaticResource Hover_InputBorderBrush}" />
-                <Setter
-                    TargetName="Bd"
-                    Property="Background"
-                    Value="{StaticResource InputItemHoverBrush}" />
+                <Setter TargetName="Box" Property="BorderBrush" Value="{StaticResource Hover_InputBorderBrush}" />
+                <Setter TargetName="Bd" Property="Background" Value="{StaticResource InputItemHoverBrush}" />
             </Trigger>
-            <!--  Нажатие гасит строку, но не залитую галочкой рамку: тот же приём,
-                  что и у кнопок (IsChecked-состояние объявляется последним триггером)  -->
+            <!--
+                Нажатие гасит строку, но не залитую галочкой рамку: тот же приём,
+                что и у кнопок (IsChecked-состояние объявляется последним триггером)
+            -->
             <Trigger Property="IsPressed" Value="True">
-                <Setter
-                    TargetName="Bd"
-                    Property="Background"
-                    Value="{StaticResource Pressed_PrimaryBrush}" />
+                <Setter TargetName="Bd" Property="Background" Value="{StaticResource Pressed_PrimaryBrush}" />
             </Trigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
                     <Condition Property="IsPressed" Value="True" />
                     <Condition Property="IsChecked" Value="False" />
                 </MultiTrigger.Conditions>
-                <Setter
-                    TargetName="Box"
-                    Property="Background"
-                    Value="{StaticResource Pressed_PrimaryBrush}" />
+                <Setter TargetName="Box" Property="Background" Value="{StaticResource Pressed_PrimaryBrush}" />
             </MultiTrigger>
             <Trigger Property="IsChecked" Value="True">
-                <Setter
-                    TargetName="Box"
-                    Property="Background"
-                    Value="{StaticResource Focus_PrimaryBrush}" />
-                <Setter
-                    TargetName="Box"
-                    Property="BorderBrush"
-                    Value="{StaticResource Focus_PrimaryBrush}" />
-                <Setter
-                    TargetName="Mark"
-                    Property="Visibility"
-                    Value="Visible" />
+                <Setter TargetName="Box" Property="Background" Value="{StaticResource Focus_PrimaryBrush}" />
+                <Setter TargetName="Box" Property="BorderBrush" Value="{StaticResource Focus_PrimaryBrush}" />
+                <Setter TargetName="Mark" Property="Visibility" Value="Visible" />
             </Trigger>
             <Trigger Property="IsChecked" Value="{x:Null}">
-                <Setter
-                    TargetName="Box"
-                    Property="Background"
-                    Value="{StaticResource Focus_PrimaryBrush}" />
-                <Setter
-                    TargetName="Box"
-                    Property="BorderBrush"
-                    Value="{StaticResource Focus_PrimaryBrush}" />
-                <Setter
-                    TargetName="Dash"
-                    Property="Visibility"
-                    Value="Visible" />
+                <Setter TargetName="Box" Property="Background" Value="{StaticResource Focus_PrimaryBrush}" />
+                <Setter TargetName="Box" Property="BorderBrush" Value="{StaticResource Focus_PrimaryBrush}" />
+                <Setter TargetName="Dash" Property="Visibility" Value="Visible" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

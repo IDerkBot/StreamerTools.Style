@@ -16,16 +16,11 @@
             BorderThickness="{TemplateBinding BorderThickness}"
             CornerRadius="{TemplateBinding attach:Hint.CornerRadius}"
             SnapsToDevicePixels="True">
-            <ContentPresenter
-                Content="{TemplateBinding Content}"
-                ContentTemplate="{TemplateBinding ContentTemplate}" />
+            <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" />
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter
-                    TargetName="Bd"
-                    Property="Background"
-                    Value="{StaticResource Hover_InputBackgroundBrush}" />
+                <Setter TargetName="Bd" Property="Background" Value="{StaticResource Hover_InputBackgroundBrush}" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -60,16 +55,10 @@
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsHighlighted" Value="True">
-                <Setter
-                    TargetName="Bd"
-                    Property="Background"
-                    Value="{StaticResource InputItemHoverBrush}" />
+                <Setter TargetName="Bd" Property="Background" Value="{StaticResource InputItemHoverBrush}" />
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
-                <Setter
-                    TargetName="Bd"
-                    Property="Background"
-                    Value="{StaticResource InputItemSelectedBrush}" />
+                <Setter TargetName="Bd" Property="Background" Value="{StaticResource InputItemSelectedBrush}" />
                 <Setter Property="Foreground" Value="White" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
@@ -93,9 +82,7 @@
                 Name="Toggle"
                 ClickMode="Press"
                 Focusable="False"
-                IsChecked="{Binding Path=IsDropDownOpen,
-                                     Mode=TwoWay,
-                                     RelativeSource={RelativeSource TemplatedParent}}"
+                IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                 Style="{StaticResource ComboBoxToggle}">
                 <Grid Margin="{TemplateBinding Padding}">
                     <Grid.ColumnDefinitions>
@@ -116,14 +103,12 @@
                     <TextBox
                         Name="PART_EditableTextBox"
                         Grid.Column="0"
+                        Padding="0"
                         Background="Transparent"
                         BorderThickness="0"
-                        Padding="0"
                         Foreground="{TemplateBinding Foreground}"
                         IsReadOnly="{TemplateBinding IsReadOnly}"
-                        Text="{Binding Path=Text,
-                                       Mode=TwoWay,
-                                       RelativeSource={RelativeSource TemplatedParent}}"
+                        Text="{Binding Path=Text, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                         Visibility="Collapsed" />
                     <controls:Icon
                         Name="Chevron"
@@ -153,8 +138,7 @@
                 StaysOpen="False"
                 VerticalOffset="4">
                 <Border
-                    MinWidth="{Binding Path=ActualWidth,
-                                      RelativeSource={RelativeSource TemplatedParent}}"
+                    MinWidth="{Binding Path=ActualWidth, RelativeSource={RelativeSource TemplatedParent}}"
                     MaxHeight="{TemplateBinding MaxDropDownHeight}"
                     Margin="4,0,4,0"
                     Padding="4"
@@ -166,8 +150,7 @@
                         Margin="0,2"
                         CanContentScroll="True"
                         HorizontalScrollBarVisibility="Disabled"
-                        VerticalScrollBarVisibility="{Binding Path=(ScrollViewer.VerticalScrollBarVisibility),
-                                                            RelativeSource={RelativeSource TemplatedParent}}">
+                        VerticalScrollBarVisibility="{Binding Path=(ScrollViewer.VerticalScrollBarVisibility), RelativeSource={RelativeSource TemplatedParent}}">
                         <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
                     </ScrollViewer>
                 </Border>
@@ -175,14 +158,8 @@
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsEditable" Value="True">
-                <Setter
-                    TargetName="PART_SelectedItem"
-                    Property="Visibility"
-                    Value="Collapsed" />
-                <Setter
-                    TargetName="PART_EditableTextBox"
-                    Property="Visibility"
-                    Value="Visible" />
+                <Setter TargetName="PART_SelectedItem" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible" />
             </Trigger>
             <Trigger Property="IsDropDownOpen" Value="True">
                 <Setter TargetName="Chevron" Property="RenderTransform">
