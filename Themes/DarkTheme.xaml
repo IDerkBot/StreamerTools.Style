@@ -12,5 +12,7 @@
 
         <ResourceDictionary Source="UIControls/ScrollViewer.xaml" />
 
+        <ResourceDictionary Source="UIControls/Expander.xaml" />
+
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

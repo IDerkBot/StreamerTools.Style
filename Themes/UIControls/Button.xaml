@@ -96,13 +96,13 @@
         </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderBrush" Value="{StaticResource Hover_SecondaryBrush}" />
-                <Setter Property="Background" Value="{StaticResource Hover_SecondaryBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource Dg3}" />
+                <Setter Property="Background" Value="{StaticResource Dg3}" />
                 <Setter Property="Cursor" Value="Hand" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{StaticResource Pressed_SecondaryBrush}" />
-                <Setter Property="BorderBrush" Value="{StaticResource Pressed_SecondaryBrush}" />
+                <Setter Property="Background" Value="{StaticResource Dg1}" />
+                <Setter Property="BorderBrush" Value="{StaticResource Dg1}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Opacity" Value=".5" />
@@ -132,6 +132,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+
     <ControlTemplate x:Key="OutlineTemplate" TargetType="{x:Type Button}">
         <Border
             Name="Border"
@@ -181,7 +182,7 @@
                     Kind="{TemplateBinding attach:Button.RightIcon}"
                     Visibility="{TemplateBinding attach:Button.RightIcon,
                                                  Converter={StaticResource IconConverter}}" />
-                <ProgressBar
+                <!--<ProgressBar
                     x:Name="ProgressBar"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
@@ -192,18 +193,18 @@
                     Style="{StaticResource BtnCircleProgressBar}"
                     Visibility="{TemplateBinding attach:Button.ProgressBarShow,
                                                  Converter={StaticResource VisibilityConverter}}"
-                    Value="{TemplateBinding attach:Button.ProgressBarValue}" />
+                    Value="{TemplateBinding attach:Button.ProgressBarValue}" />-->
             </Grid>
         </Border>
-        <!--<ControlTemplate.Triggers>
+        <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderBrush" Value="{StaticResource Lg2}" />
-                <Setter Property="Background" Value="{StaticResource Lg5}" />
+                <Setter Property="Background" Value="{StaticResource Dg3}" />
+                <Setter Property="BorderBrush" Value="{StaticResource Dg5}" />
                 <Setter Property="Cursor" Value="Hand" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{StaticResource Lg3}" />
-                <Setter Property="BorderBrush" Value="{StaticResource Lg3}" />
+                <Setter Property="Background" Value="{StaticResource Dg1}" />
+                <Setter Property="BorderBrush" Value="{StaticResource Dg1}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Opacity" Value=".5" />
@@ -212,15 +213,15 @@
                 <Setter Property="Padding" Value="12" />
                 <Setter Property="MinWidth" Value="40" />
             </Trigger>
-            <Trigger Property="attach:Button.ProgressBarType" Value="Circle">
+            <!--<Trigger Property="attach:Button.ProgressBarType" Value="Circle">
                 <Setter TargetName="ProgressBar" Property="Style" Value="{StaticResource BtnCircleProgressBar}" />
                 <Setter TargetName="ProgressBar" Property="Width" Value="16" />
                 <Setter TargetName="ProgressBar" Property="Height" Value="16" />
                 <Setter Property="Padding" Value="5" />
-            </Trigger>
-            <Trigger Property="attach:Button.ProgressBarType" Value="Linear">
+            </Trigger>-->
+            <!--<Trigger Property="attach:Button.ProgressBarType" Value="Linear">
                 <Setter TargetName="ProgressBar" Property="Style" Value="{StaticResource BtnProgressBar}" />
-            </Trigger>
+            </Trigger>-->
             <Trigger Property="attach:Button.Position" Value="First">
                 <Setter Property="attach:Hint.CornerRadius" Value="6,0,0,6" />
             </Trigger>
@@ -231,12 +232,12 @@
                 <Setter Property="attach:Hint.CornerRadius" Value="0,6,6,0" />
             </Trigger>
 
-        -->
-        <!-- <Trigger Property="IsFocused" Value="True"> -->
-        <!--     <Setter Property="Visibility" TargetName="Focus" Value="Visible" /> -->
-        <!-- </Trigger> -->
-        <!--
-        </ControlTemplate.Triggers>-->
+
+            <!--<Trigger Property="IsFocused" Value="True">
+                <Setter TargetName="Focus" Property="Visibility" Value="Visible" />
+            </Trigger>-->
+
+        </ControlTemplate.Triggers>
     </ControlTemplate>
     <ControlTemplate x:Key="TextTemplate" TargetType="{x:Type Button}">
         <Grid>
@@ -289,7 +290,7 @@
                     Kind="{TemplateBinding attach:Button.RightIcon}"
                     Visibility="{TemplateBinding attach:Button.RightIcon,
                                                  Converter={StaticResource IconConverter}}" />
-                <ProgressBar
+                <!--<ProgressBar
                     x:Name="ProgressBar"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
@@ -300,16 +301,18 @@
                     Style="{StaticResource BtnCircleProgressBar}"
                     Visibility="{TemplateBinding attach:Button.ProgressBarShow,
                                                  Converter={StaticResource VisibilityConverter}}"
-                    Value="{TemplateBinding attach:Button.ProgressBarValue}" />
+                    Value="{TemplateBinding attach:Button.ProgressBarValue}" />-->
             </Grid>
         </Grid>
-        <!--<ControlTemplate.Triggers>
+        <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="Border" Property="Opacity" Value=".04" />
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource Dg3}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource Dg3}" />
                 <Setter Property="Cursor" Value="Hand" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter TargetName="Border" Property="Opacity" Value=".1" />
+                <Setter TargetName="Border" Property="Background" Value="{StaticResource Dg1}" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource Dg1}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Opacity" Value=".5" />
@@ -318,14 +321,14 @@
                 <Setter Property="Padding" Value="12" />
                 <Setter Property="MinWidth" Value="40" />
             </Trigger>
-            <Trigger Property="attach:Button.ProgressBarType" Value="Circle">
+            <!--<Trigger Property="attach:Button.ProgressBarType" Value="Circle">
                 <Setter TargetName="ProgressBar" Property="Style" Value="{StaticResource BtnCircleProgressBar}" />
                 <Setter TargetName="ProgressBar" Property="Width" Value="16" />
                 <Setter TargetName="ProgressBar" Property="Height" Value="16" />
             </Trigger>
             <Trigger Property="attach:Button.ProgressBarType" Value="Linear">
                 <Setter TargetName="ProgressBar" Property="Style" Value="{StaticResource BtnProgressBar}" />
-            </Trigger>
+            </Trigger>-->
             <Trigger Property="attach:Button.Position" Value="First">
                 <Setter Property="attach:Hint.CornerRadius" Value="6,0,0,6" />
             </Trigger>
@@ -336,12 +339,12 @@
                 <Setter Property="attach:Hint.CornerRadius" Value="0,6,6,0" />
             </Trigger>
 
-        -->
-        <!-- <Trigger Property="IsFocused" Value="True"> -->
-        <!--     <Setter Property="Visibility" TargetName="Focus" Value="Visible" /> -->
-        <!-- </Trigger> -->
-        <!--
-        </ControlTemplate.Triggers>-->
+
+            <!--<Trigger Property="IsFocused" Value="True">
+                <Setter TargetName="Focus" Property="Visibility" Value="Visible" />
+            </Trigger>-->
+
+        </ControlTemplate.Triggers>
     </ControlTemplate>
 
     <Style x:Key="BtnBase" TargetType="{x:Type Button}">
@@ -364,19 +367,18 @@
         x:Key="BtnFilled"
         BasedOn="{StaticResource BtnBase}"
         TargetType="{x:Type Button}">
-        <Setter Property="Foreground" Value="White" />
-        <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}" />
+        <Setter Property="Background" Value="{StaticResource Dg2}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Dg2}" />
         <Setter Property="Template" Value="{StaticResource FilledTemplate}" />
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource Lg3}" />
     </Style>
     <Style
         x:Key="BtnOutline"
         BasedOn="{StaticResource BtnBase}"
         TargetType="{x:Type Button}">
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource Lg3}" />
+        <Setter Property="Background" Value="{StaticResource Dg2}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Dg5}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template" Value="{StaticResource OutlineTemplate}" />
     </Style>
@@ -385,8 +387,8 @@
         BasedOn="{StaticResource BtnBase}"
         TargetType="{x:Type Button}">
         <!--<Setter Property="Foreground" Value="{StaticResource Dg2}" />-->
-        <Setter Property="Background" Value="#002D46" />
-        <Setter Property="BorderBrush" Value="#002D46" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Template" Value="{StaticResource TextTemplate}" />
     </Style>
 
